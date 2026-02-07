@@ -1,0 +1,846 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 63;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0B5CB895D46D89E5200AF16A /* WeaponSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D966F6CE5F5785FA33DC7C9 /* WeaponSystem.swift */; };
+		0C81BC82FE58F72C53F9B4C6 /* ObservationPostEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423090A60193F2C5AED6CFCB /* ObservationPostEntity.swift */; };
+		17C33F0A2CFBE293D6C53F7C /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D763838CF6A9CD95B534DA0F /* TargetType.swift */; };
+		18034BE9DC0DDB2333B70AC5 /* WaypointEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF6A29947DD0150E35F5F9D /* WaypointEntity.swift */; };
+		1AE30FEE9F92BD4AB45CB7FD /* MapMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B2F40A71E7788FFF8A875A /* MapMode.swift */; };
+		1DC04C240FCCCF7B074BE6A7 /* TacMapColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AD8721390BA483A5CF07D /* TacMapColors.swift */; };
+		1FF9A3D241BE7605322E1437 /* CoordinateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677E9E766CA7D8E6373CB448 /* CoordinateFormat.swift */; };
+		21A6644D2DB3D9BA863DBF87 /* MilitarySymbolEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD81E0EB8311C5A9B5554C2 /* MilitarySymbolEntity.swift */; };
+		232053225C337D479F05E086 /* SymbolLibraryDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87572774CD8D1FD4C786DF88 /* SymbolLibraryDrawer.swift */; };
+		25B0A9D42463BC07526237BA /* GPSIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A6353BE20B6960AD18EE3 /* GPSIndicator.swift */; };
+		2D09B03212EC5B81C1488373 /* PlannedTargetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3A10F151F22075BE321556 /* PlannedTargetEntity.swift */; };
+		306110CF7DAF99EE99CEACA1 /* UnitType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A3AC7126E47756D6CD91DD /* UnitType.swift */; };
+		3B5AC097FC1677364C36FD38 /* GoToGridPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8315A45AA6D515A5D32FB200 /* GoToGridPopup.swift */; };
+		3E6CE3BF320E4014F557C700 /* TacMapButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3433121FE8A4139BC8BA8454 /* TacMapButtons.swift */; };
+		423895399AC25CB3B068D9E1 /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 4F273AB6A14F2EEABE8FC88C /* MapboxMaps */; };
+		4740E74657A09F9A15E6305B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB00700A06C274BC2035FE0 /* ContentView.swift */; };
+		486C410FFD9E46BAE30C9520 /* MyContentPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122C05F8BF9941FC7EF32C71 /* MyContentPanel.swift */; };
+		48EFD2657854E44A0D423031 /* SlideUpPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B95CBF9F2E1B1B2E86CA45A /* SlideUpPanel.swift */; };
+		4F68B10087E5FA3DC2B6A99F /* MarkerDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3D3E99465408468A6DF56 /* MarkerDetailCard.swift */; };
+		53F3017657972C9273141831 /* TacMapTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050A10C296C503BFB5C2B58F /* TacMapTypography.swift */; };
+		61874398D85582B9DC157DD3 /* Echelon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EA5EE943A33D4553BEE526 /* Echelon.swift */; };
+		66BA8A6CDD07759126E4998E /* TacticalGraphicEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BE13F0D3EEB69488E0156A /* TacticalGraphicEntity.swift */; };
+		6A615F780C1393BCC3E9009E /* GoToGridViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CBAC44D1D8337F7BDD32D6 /* GoToGridViewModel.swift */; };
+		6FE9F323CF5DB44EEF2DC1A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 766EAAA85E714A6EFA963A4A /* Assets.xcassets */; };
+		71C71F12F267D1EA10858B0D /* TACMAP_Current_BuildApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4995CCCF55546985B0FD398F /* TACMAP_Current_BuildApp.swift */; };
+		751770D831107C993FBACF27 /* QuickDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FBB31AD5E051B199FC5E55 /* QuickDropView.swift */; };
+		7788E0A371584CFD02FAB7EE /* MapContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E1FDF7B6CE79D739206BD /* MapContainerView.swift */; };
+		7BFFD0E7377E29628E895EB3 /* LayerTogglePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715512AFFC0FB5D9A4FB3E57 /* LayerTogglePanel.swift */; };
+		89E649558D5E72AF50897CC4 /* FloatingControlsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969021E0EAB2DEC398485B4E /* FloatingControlsStack.swift */; };
+		93B6B103CFFD2192B175B8C7 /* GraphicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD169D69A3967D5FFC3ACB6E /* GraphicType.swift */; };
+		949C573B60F675FD31125382 /* MGRSKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6653D413378B2A373D15F650 /* MGRSKeyboard.swift */; };
+		981CE9E1F1F756BEF63378CE /* SymbolsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD2E4D24B0648F52089F961 /* SymbolsPanel.swift */; };
+		9A0C51ABA7F1A3DB64EB3D57 /* TargetNumberGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467E864DA2608CFFE9EC3BB0 /* TargetNumberGenerator.swift */; };
+		9CE04C68C72D026CB1830023 /* MapCrosshair.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8B875886A16006E6BB10E4 /* MapCrosshair.swift */; };
+		9E764C7FD40A6F367752581E /* ToolsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7EBC5587A178E97DF0CB6A /* ToolsPanel.swift */; };
+		A75969D10D6700A3C61E3399 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBE278614422CF11B44C528 /* SearchView.swift */; };
+		A9C870A6A4566B59C48FE092 /* Affiliation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F945D44BEC6694D1D7E054C0 /* Affiliation.swift */; };
+		AD826309B38CB826C939DB31 /* TacMapIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2711F4A97AD6A94CA301B5EF /* TacMapIcons.swift */; };
+		BB22F49DCEC59F637BF0E1B6 /* OfflineMapsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770B123CCEFF47D6EC5A43C0 /* OfflineMapsPanel.swift */; };
+		BFE94B5289FDEA311F890BC5 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6824A1D0FC8FCC56E58262D0 /* DependencyContainer.swift */; };
+		C11D18B9CF8CC15369CE2C42 /* TacMapAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB56D065E91F0C8AB95AF87 /* TacMapAnimation.swift */; };
+		C7CF6F914BE72F132724F428 /* CoordinateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAB6545F4056A09C2B9AFD4 /* CoordinateLabel.swift */; };
+		C9ECC9B69891FFF011B8E52F /* SFSymbolRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2912A7B8A945CD744F531 /* SFSymbolRenderer.swift */; };
+		CA049CC26703805D4966A752 /* FolderEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FC0D6F6E6993CAD8049E50 /* FolderEntity.swift */; };
+		CA2E90ADD5524ED1EDEA0575 /* CoordinateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C1CAD8480F4899C1A53C30 /* CoordinateConverter.swift */; };
+		CCCCA2DC82D92E2B3AF2A8C3 /* TacMapSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4379AC1C2392FCB138680927 /* TacMapSpacing.swift */; };
+		D0D2432072EC1C6EE2A4DD66 /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F9C6D52A79BD4F02B36C98 /* DistanceCalculator.swift */; };
+		D2D99CE659F2C25362DEF856 /* FireMissionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA400502549FEDA04A35422 /* FireMissionEntity.swift */; };
+		D48FB5F3B86092E8DF202C0A /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FAB7521A4EE451A81AD5CA /* MapViewModel.swift */; };
+		D81266D404AD2A505AA92985 /* QuickDropManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5279D2A3FFC5988A6625834C /* QuickDropManager.swift */; };
+		DBB642B4FFB746290CAE925A /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7373B31F9B75EA9ABC37E1F8 /* MenuView.swift */; };
+		DDF048043716BD6BC831D6FC /* SettingsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76005C9CC4497BCBFBECF1D /* SettingsPanel.swift */; };
+		E1AFDD472E4057345A9667A7 /* RouteEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F9FD7FF6E141F4E7E74333 /* RouteEntity.swift */; };
+		E3F525CD5629116BA8640EBE /* SavedGridEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB488C67474BB6201CD94BE /* SavedGridEntity.swift */; };
+		E52E6E13F823B9097F262A4A /* ScaleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073CDB637B5FF85B9C124B23 /* ScaleBar.swift */; };
+		ECF1082C75A22A1201AFCAED /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037528B10AD3BDFE96A64C55 /* LocationService.swift */; };
+		F17A3574B0F364A5584968AE /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D60131C9133A2E05962846 /* AppSettings.swift */; };
+		F6C76907CFE9153E1389AA76 /* MarkerOverlayEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6863361584F2EDF7357E0A71 /* MarkerOverlayEntity.swift */; };
+		FC7B7FB3746ABA1F9C29BC20 /* PhotoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA951468F875AB6C0D78FFE /* PhotoEntity.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		037528B10AD3BDFE96A64C55 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		050A10C296C503BFB5C2B58F /* TacMapTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacMapTypography.swift; sourceTree = "<group>"; };
+		05D60131C9133A2E05962846 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		05FC0D6F6E6993CAD8049E50 /* FolderEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderEntity.swift; sourceTree = "<group>"; };
+		073CDB637B5FF85B9C124B23 /* ScaleBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleBar.swift; sourceTree = "<group>"; };
+		0B3A10F151F22075BE321556 /* PlannedTargetEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedTargetEntity.swift; sourceTree = "<group>"; };
+		0C7EBC5587A178E97DF0CB6A /* ToolsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsPanel.swift; sourceTree = "<group>"; };
+		0F2A6353BE20B6960AD18EE3 /* GPSIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSIndicator.swift; sourceTree = "<group>"; };
+		0FBE278614422CF11B44C528 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		10A3AC7126E47756D6CD91DD /* UnitType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitType.swift; sourceTree = "<group>"; };
+		122C05F8BF9941FC7EF32C71 /* MyContentPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyContentPanel.swift; sourceTree = "<group>"; };
+		183AD8721390BA483A5CF07D /* TacMapColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacMapColors.swift; sourceTree = "<group>"; };
+		1AB56D065E91F0C8AB95AF87 /* TacMapAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacMapAnimation.swift; sourceTree = "<group>"; };
+		2711F4A97AD6A94CA301B5EF /* TacMapIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacMapIcons.swift; sourceTree = "<group>"; };
+		28FAB7521A4EE451A81AD5CA /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		3433121FE8A4139BC8BA8454 /* TacMapButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacMapButtons.swift; sourceTree = "<group>"; };
+		423090A60193F2C5AED6CFCB /* ObservationPostEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservationPostEntity.swift; sourceTree = "<group>"; };
+		4379AC1C2392FCB138680927 /* TacMapSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacMapSpacing.swift; sourceTree = "<group>"; };
+		467E864DA2608CFFE9EC3BB0 /* TargetNumberGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetNumberGenerator.swift; sourceTree = "<group>"; };
+		4995CCCF55546985B0FD398F /* TACMAP_Current_BuildApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TACMAP_Current_BuildApp.swift; sourceTree = "<group>"; };
+		4EB3D3E99465408468A6DF56 /* MarkerDetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerDetailCard.swift; sourceTree = "<group>"; };
+		5279D2A3FFC5988A6625834C /* QuickDropManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickDropManager.swift; sourceTree = "<group>"; };
+		52C1CAD8480F4899C1A53C30 /* CoordinateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateConverter.swift; sourceTree = "<group>"; };
+		5BD81E0EB8311C5A9B5554C2 /* MilitarySymbolEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilitarySymbolEntity.swift; sourceTree = "<group>"; };
+		5D966F6CE5F5785FA33DC7C9 /* WeaponSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponSystem.swift; sourceTree = "<group>"; };
+		5DA400502549FEDA04A35422 /* FireMissionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireMissionEntity.swift; sourceTree = "<group>"; };
+		5DD2E4D24B0648F52089F961 /* SymbolsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolsPanel.swift; sourceTree = "<group>"; };
+		64303C63F37E4413F7BD8A96 /* TacMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TacMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6653D413378B2A373D15F650 /* MGRSKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGRSKeyboard.swift; sourceTree = "<group>"; };
+		677E9E766CA7D8E6373CB448 /* CoordinateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormat.swift; sourceTree = "<group>"; };
+		6824A1D0FC8FCC56E58262D0 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
+		6863361584F2EDF7357E0A71 /* MarkerOverlayEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerOverlayEntity.swift; sourceTree = "<group>"; };
+		69B2F40A71E7788FFF8A875A /* MapMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMode.swift; sourceTree = "<group>"; };
+		715512AFFC0FB5D9A4FB3E57 /* LayerTogglePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerTogglePanel.swift; sourceTree = "<group>"; };
+		7373B31F9B75EA9ABC37E1F8 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		766EAAA85E714A6EFA963A4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		770B123CCEFF47D6EC5A43C0 /* OfflineMapsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineMapsPanel.swift; sourceTree = "<group>"; };
+		7FA2912A7B8A945CD744F531 /* SFSymbolRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbolRenderer.swift; sourceTree = "<group>"; };
+		8315A45AA6D515A5D32FB200 /* GoToGridPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToGridPopup.swift; sourceTree = "<group>"; };
+		87572774CD8D1FD4C786DF88 /* SymbolLibraryDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolLibraryDrawer.swift; sourceTree = "<group>"; };
+		8B95CBF9F2E1B1B2E86CA45A /* SlideUpPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUpPanel.swift; sourceTree = "<group>"; };
+		8EB00700A06C274BC2035FE0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		90BE13F0D3EEB69488E0156A /* TacticalGraphicEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacticalGraphicEntity.swift; sourceTree = "<group>"; };
+		969021E0EAB2DEC398485B4E /* FloatingControlsStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingControlsStack.swift; sourceTree = "<group>"; };
+		AD169D69A3967D5FFC3ACB6E /* GraphicType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicType.swift; sourceTree = "<group>"; };
+		B0F9C6D52A79BD4F02B36C98 /* DistanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
+		B76005C9CC4497BCBFBECF1D /* SettingsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPanel.swift; sourceTree = "<group>"; };
+		B7CBAC44D1D8337F7BDD32D6 /* GoToGridViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToGridViewModel.swift; sourceTree = "<group>"; };
+		B9F9FD7FF6E141F4E7E74333 /* RouteEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteEntity.swift; sourceTree = "<group>"; };
+		BBA951468F875AB6C0D78FFE /* PhotoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEntity.swift; sourceTree = "<group>"; };
+		CD8B875886A16006E6BB10E4 /* MapCrosshair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCrosshair.swift; sourceTree = "<group>"; };
+		D67E1FDF7B6CE79D739206BD /* MapContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapContainerView.swift; sourceTree = "<group>"; };
+		D763838CF6A9CD95B534DA0F /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
+		DDB488C67474BB6201CD94BE /* SavedGridEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedGridEntity.swift; sourceTree = "<group>"; };
+		DEF6A29947DD0150E35F5F9D /* WaypointEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointEntity.swift; sourceTree = "<group>"; };
+		EBAB6545F4056A09C2B9AFD4 /* CoordinateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateLabel.swift; sourceTree = "<group>"; };
+		F1FBB31AD5E051B199FC5E55 /* QuickDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickDropView.swift; sourceTree = "<group>"; };
+		F4EA5EE943A33D4553BEE526 /* Echelon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Echelon.swift; sourceTree = "<group>"; };
+		F945D44BEC6694D1D7E054C0 /* Affiliation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Affiliation.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9DF3DA7AEEA541FB73DDE12E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				423895399AC25CB3B068D9E1 /* MapboxMaps in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		035EBC4F3129ED7456C3FA40 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				0C7EBC5587A178E97DF0CB6A /* ToolsPanel.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		0A6E2CA139376D423C2282DE /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				3433121FE8A4139BC8BA8454 /* TacMapButtons.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		0FB10E6178369DDA15F3DFB1 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				326D19DAA3B163F148CD4F56 /* ViewModels */,
+				411BE99431F7FE0F8A34B4E7 /* Views */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		15D1FE2FFAF86083052F2FE7 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				5279D2A3FFC5988A6625834C /* QuickDropManager.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		1985C64DCB3032A4B5BAFD66 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8315A45AA6D515A5D32FB200 /* GoToGridPopup.swift */,
+				6653D413378B2A373D15F650 /* MGRSKeyboard.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1A4EF97FA3334FF41B8B039E /* Typography */ = {
+			isa = PBXGroup;
+			children = (
+				050A10C296C503BFB5C2B58F /* TacMapTypography.swift */,
+			);
+			path = Typography;
+			sourceTree = "<group>";
+		};
+		1B13C36E05359E9ACAC9C5A0 /* Symbols */ = {
+			isa = PBXGroup;
+			children = (
+				5DD2E4D24B0648F52089F961 /* SymbolsPanel.swift */,
+			);
+			path = Symbols;
+			sourceTree = "<group>";
+		};
+		2322E92E38C7E2F067E2D7A3 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				037528B10AD3BDFE96A64C55 /* LocationService.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		2CEE82E040E0A92AA237E89D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F1FBB31AD5E051B199FC5E55 /* QuickDropView.swift */,
+				87572774CD8D1FD4C786DF88 /* SymbolLibraryDrawer.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2E5B70A4F34FE39BD78F77AD /* Spacing */ = {
+			isa = PBXGroup;
+			children = (
+				4379AC1C2392FCB138680927 /* TacMapSpacing.swift */,
+			);
+			path = Spacing;
+			sourceTree = "<group>";
+		};
+		2FE7A96AFC6CB8C33222C5C8 /* Panels */ = {
+			isa = PBXGroup;
+			children = (
+				8B95CBF9F2E1B1B2E86CA45A /* SlideUpPanel.swift */,
+			);
+			path = Panels;
+			sourceTree = "<group>";
+		};
+		3044F1543CFF56B557C5795A /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				1AB56D065E91F0C8AB95AF87 /* TacMapAnimation.swift */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
+		326D19DAA3B163F148CD4F56 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				28FAB7521A4EE451A81AD5CA /* MapViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		3EF7BBF7777E70362182012A /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				3044F1543CFF56B557C5795A /* Animation */,
+				64DAF7808A93CBE8A99067CA /* Colors */,
+				8D338E22472C7A45FE4EABF2 /* Components */,
+				DD197331F80693C61F846186 /* Icons */,
+				549134E694DD55FFC422CFF8 /* MapUI */,
+				2E5B70A4F34FE39BD78F77AD /* Spacing */,
+				1A4EF97FA3334FF41B8B039E /* Typography */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		411BE99431F7FE0F8A34B4E7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				715512AFFC0FB5D9A4FB3E57 /* LayerTogglePanel.swift */,
+				D67E1FDF7B6CE79D739206BD /* MapContainerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4FD40EA1F78A087C9B4F4C1E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				64303C63F37E4413F7BD8A96 /* TacMap.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		51988C7F4A8C2609AFA60F31 /* SwiftData */ = {
+			isa = PBXGroup;
+			children = (
+				5DA400502549FEDA04A35422 /* FireMissionEntity.swift */,
+				05FC0D6F6E6993CAD8049E50 /* FolderEntity.swift */,
+				6863361584F2EDF7357E0A71 /* MarkerOverlayEntity.swift */,
+				5BD81E0EB8311C5A9B5554C2 /* MilitarySymbolEntity.swift */,
+				423090A60193F2C5AED6CFCB /* ObservationPostEntity.swift */,
+				BBA951468F875AB6C0D78FFE /* PhotoEntity.swift */,
+				0B3A10F151F22075BE321556 /* PlannedTargetEntity.swift */,
+				B9F9FD7FF6E141F4E7E74333 /* RouteEntity.swift */,
+				DDB488C67474BB6201CD94BE /* SavedGridEntity.swift */,
+				90BE13F0D3EEB69488E0156A /* TacticalGraphicEntity.swift */,
+				DEF6A29947DD0150E35F5F9D /* WaypointEntity.swift */,
+			);
+			path = SwiftData;
+			sourceTree = "<group>";
+		};
+		52971D28D9C5E719DDF0A692 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				61D2B75290EE87D41C999F5C /* Content */,
+				BB92653EA5E693C4E469A3DF /* GoToGrid */,
+				0FB10E6178369DDA15F3DFB1 /* Map */,
+				C3DD07870E49B9184C658AF7 /* MarkerDetail */,
+				8652173C4E6EC6C3468A6DEA /* OfflineMaps */,
+				DBEF6891E8D215DD0DA163D4 /* QuickDrop */,
+				7C875DB27B55CFD323300A96 /* Search */,
+				C7F13B6C874E234742277CA9 /* Settings */,
+				1B13C36E05359E9ACAC9C5A0 /* Symbols */,
+				035EBC4F3129ED7456C3FA40 /* Tools */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		549134E694DD55FFC422CFF8 /* MapUI */ = {
+			isa = PBXGroup;
+			children = (
+				EBAB6545F4056A09C2B9AFD4 /* CoordinateLabel.swift */,
+				969021E0EAB2DEC398485B4E /* FloatingControlsStack.swift */,
+				0F2A6353BE20B6960AD18EE3 /* GPSIndicator.swift */,
+				CD8B875886A16006E6BB10E4 /* MapCrosshair.swift */,
+				073CDB637B5FF85B9C124B23 /* ScaleBar.swift */,
+			);
+			path = MapUI;
+			sourceTree = "<group>";
+		};
+		5C3248458238C5B8E530E6BB /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				05D60131C9133A2E05962846 /* AppSettings.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		5D6C4563E41D0D3DFFD8C4A7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4EB3D3E99465408468A6DF56 /* MarkerDetailCard.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		61D2B75290EE87D41C999F5C /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				122C05F8BF9941FC7EF32C71 /* MyContentPanel.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		64DAF7808A93CBE8A99067CA /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				183AD8721390BA483A5CF07D /* TacMapColors.swift */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		6E4FF4CE93D904D724562307 /* Analysis */ = {
+			isa = PBXGroup;
+			children = (
+				B0F9C6D52A79BD4F02B36C98 /* DistanceCalculator.swift */,
+			);
+			path = Analysis;
+			sourceTree = "<group>";
+		};
+		7AD25AF2118B936798A367D1 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B7CBAC44D1D8337F7BDD32D6 /* GoToGridViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		7C875DB27B55CFD323300A96 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				7373B31F9B75EA9ABC37E1F8 /* MenuView.swift */,
+				0FBE278614422CF11B44C528 /* SearchView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		84A637E3521B1DE3F66E65D8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DCEF012CEC9A352D7C1C2A0A /* Enums */,
+				51988C7F4A8C2609AFA60F31 /* SwiftData */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8652173C4E6EC6C3468A6DEA /* OfflineMaps */ = {
+			isa = PBXGroup;
+			children = (
+				770B123CCEFF47D6EC5A43C0 /* OfflineMapsPanel.swift */,
+			);
+			path = OfflineMaps;
+			sourceTree = "<group>";
+		};
+		8D338E22472C7A45FE4EABF2 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				0A6E2CA139376D423C2282DE /* Buttons */,
+				2FE7A96AFC6CB8C33222C5C8 /* Panels */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		9C0A9FF5751947A8631588DE /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				5C3248458238C5B8E530E6BB /* Constants */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		ADB0638ADED8CE4358A74A25 = {
+			isa = PBXGroup;
+			children = (
+				EA3DC5060852EB9BE50DC5FD /* TACMAP Current Build */,
+				4FD40EA1F78A087C9B4F4C1E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AE6B54524C940CC1201E86EE /* Rendering */ = {
+			isa = PBXGroup;
+			children = (
+				7FA2912A7B8A945CD744F531 /* SFSymbolRenderer.swift */,
+			);
+			path = Rendering;
+			sourceTree = "<group>";
+		};
+		BB92653EA5E693C4E469A3DF /* GoToGrid */ = {
+			isa = PBXGroup;
+			children = (
+				7AD25AF2118B936798A367D1 /* ViewModels */,
+				1985C64DCB3032A4B5BAFD66 /* Views */,
+			);
+			path = GoToGrid;
+			sourceTree = "<group>";
+		};
+		C3DD07870E49B9184C658AF7 /* MarkerDetail */ = {
+			isa = PBXGroup;
+			children = (
+				5D6C4563E41D0D3DFFD8C4A7 /* Views */,
+			);
+			path = MarkerDetail;
+			sourceTree = "<group>";
+		};
+		C7F13B6C874E234742277CA9 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				B76005C9CC4497BCBFBECF1D /* SettingsPanel.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		CA4CB5262ECE2A0A784AC1F5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6E4FF4CE93D904D724562307 /* Analysis */,
+				2322E92E38C7E2F067E2D7A3 /* Location */,
+				E51361DF048D5193DA9F8BE3 /* Military */,
+				AE6B54524C940CC1201E86EE /* Rendering */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		DBEF6891E8D215DD0DA163D4 /* QuickDrop */ = {
+			isa = PBXGroup;
+			children = (
+				15D1FE2FFAF86083052F2FE7 /* ViewModels */,
+				2CEE82E040E0A92AA237E89D /* Views */,
+			);
+			path = QuickDrop;
+			sourceTree = "<group>";
+		};
+		DCEF012CEC9A352D7C1C2A0A /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				F945D44BEC6694D1D7E054C0 /* Affiliation.swift */,
+				677E9E766CA7D8E6373CB448 /* CoordinateFormat.swift */,
+				F4EA5EE943A33D4553BEE526 /* Echelon.swift */,
+				AD169D69A3967D5FFC3ACB6E /* GraphicType.swift */,
+				69B2F40A71E7788FFF8A875A /* MapMode.swift */,
+				D763838CF6A9CD95B534DA0F /* TargetType.swift */,
+				10A3AC7126E47756D6CD91DD /* UnitType.swift */,
+				5D966F6CE5F5785FA33DC7C9 /* WeaponSystem.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		DD197331F80693C61F846186 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				2711F4A97AD6A94CA301B5EF /* TacMapIcons.swift */,
+			);
+			path = Icons;
+			sourceTree = "<group>";
+		};
+		E51361DF048D5193DA9F8BE3 /* Military */ = {
+			isa = PBXGroup;
+			children = (
+				52C1CAD8480F4899C1A53C30 /* CoordinateConverter.swift */,
+				467E864DA2608CFFE9EC3BB0 /* TargetNumberGenerator.swift */,
+			);
+			path = Military;
+			sourceTree = "<group>";
+		};
+		E8D166A20BFBF29DDDDC9AA2 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				6824A1D0FC8FCC56E58262D0 /* DependencyContainer.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		EA3DC5060852EB9BE50DC5FD /* TACMAP Current Build */ = {
+			isa = PBXGroup;
+			children = (
+				766EAAA85E714A6EFA963A4A /* Assets.xcassets */,
+				8EB00700A06C274BC2035FE0 /* ContentView.swift */,
+				4995CCCF55546985B0FD398F /* TACMAP_Current_BuildApp.swift */,
+				E8D166A20BFBF29DDDDC9AA2 /* App */,
+				9C0A9FF5751947A8631588DE /* Core */,
+				3EF7BBF7777E70362182012A /* DesignSystem */,
+				52971D28D9C5E719DDF0A692 /* Features */,
+				84A637E3521B1DE3F66E65D8 /* Models */,
+				CA4CB5262ECE2A0A784AC1F5 /* Services */,
+			);
+			path = "TACMAP Current Build";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DC4376ACBDA831841F23C67F /* TacMap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 918F143B16AF22BEDAABEC31 /* Build configuration list for PBXNativeTarget "TacMap" */;
+			buildPhases = (
+				C7DA2B813C8FF58164009628 /* Sources */,
+				E8A643D3783AD573533FF750 /* Resources */,
+				9DF3DA7AEEA541FB73DDE12E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TacMap;
+			packageProductDependencies = (
+				4F273AB6A14F2EEABE8FC88C /* MapboxMaps */,
+			);
+			productName = TacMap;
+			productReference = 64303C63F37E4413F7BD8A96 /* TacMap.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		150CD76804C2DCFEECB07549 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2620;
+				TargetAttributes = {
+					DC4376ACBDA831841F23C67F = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 18467C36D282ADDE69F2062E /* Build configuration list for PBXProject "TacMap" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = ADB0638ADED8CE4358A74A25;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				56400061586C5FCA68B8AC2C /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
+			);
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DC4376ACBDA831841F23C67F /* TacMap */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E8A643D3783AD573533FF750 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FE9F323CF5DB44EEF2DC1A3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C7DA2B813C8FF58164009628 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9C870A6A4566B59C48FE092 /* Affiliation.swift in Sources */,
+				F17A3574B0F364A5584968AE /* AppSettings.swift in Sources */,
+				4740E74657A09F9A15E6305B /* ContentView.swift in Sources */,
+				CA2E90ADD5524ED1EDEA0575 /* CoordinateConverter.swift in Sources */,
+				1FF9A3D241BE7605322E1437 /* CoordinateFormat.swift in Sources */,
+				C7CF6F914BE72F132724F428 /* CoordinateLabel.swift in Sources */,
+				BFE94B5289FDEA311F890BC5 /* DependencyContainer.swift in Sources */,
+				D0D2432072EC1C6EE2A4DD66 /* DistanceCalculator.swift in Sources */,
+				61874398D85582B9DC157DD3 /* Echelon.swift in Sources */,
+				D2D99CE659F2C25362DEF856 /* FireMissionEntity.swift in Sources */,
+				89E649558D5E72AF50897CC4 /* FloatingControlsStack.swift in Sources */,
+				CA049CC26703805D4966A752 /* FolderEntity.swift in Sources */,
+				25B0A9D42463BC07526237BA /* GPSIndicator.swift in Sources */,
+				3B5AC097FC1677364C36FD38 /* GoToGridPopup.swift in Sources */,
+				6A615F780C1393BCC3E9009E /* GoToGridViewModel.swift in Sources */,
+				93B6B103CFFD2192B175B8C7 /* GraphicType.swift in Sources */,
+				7BFFD0E7377E29628E895EB3 /* LayerTogglePanel.swift in Sources */,
+				ECF1082C75A22A1201AFCAED /* LocationService.swift in Sources */,
+				949C573B60F675FD31125382 /* MGRSKeyboard.swift in Sources */,
+				7788E0A371584CFD02FAB7EE /* MapContainerView.swift in Sources */,
+				9CE04C68C72D026CB1830023 /* MapCrosshair.swift in Sources */,
+				1AE30FEE9F92BD4AB45CB7FD /* MapMode.swift in Sources */,
+				D48FB5F3B86092E8DF202C0A /* MapViewModel.swift in Sources */,
+				4F68B10087E5FA3DC2B6A99F /* MarkerDetailCard.swift in Sources */,
+				F6C76907CFE9153E1389AA76 /* MarkerOverlayEntity.swift in Sources */,
+				DBB642B4FFB746290CAE925A /* MenuView.swift in Sources */,
+				21A6644D2DB3D9BA863DBF87 /* MilitarySymbolEntity.swift in Sources */,
+				486C410FFD9E46BAE30C9520 /* MyContentPanel.swift in Sources */,
+				0C81BC82FE58F72C53F9B4C6 /* ObservationPostEntity.swift in Sources */,
+				BB22F49DCEC59F637BF0E1B6 /* OfflineMapsPanel.swift in Sources */,
+				FC7B7FB3746ABA1F9C29BC20 /* PhotoEntity.swift in Sources */,
+				2D09B03212EC5B81C1488373 /* PlannedTargetEntity.swift in Sources */,
+				D81266D404AD2A505AA92985 /* QuickDropManager.swift in Sources */,
+				751770D831107C993FBACF27 /* QuickDropView.swift in Sources */,
+				E1AFDD472E4057345A9667A7 /* RouteEntity.swift in Sources */,
+				C9ECC9B69891FFF011B8E52F /* SFSymbolRenderer.swift in Sources */,
+				E3F525CD5629116BA8640EBE /* SavedGridEntity.swift in Sources */,
+				E52E6E13F823B9097F262A4A /* ScaleBar.swift in Sources */,
+				A75969D10D6700A3C61E3399 /* SearchView.swift in Sources */,
+				DDF048043716BD6BC831D6FC /* SettingsPanel.swift in Sources */,
+				48EFD2657854E44A0D423031 /* SlideUpPanel.swift in Sources */,
+				232053225C337D479F05E086 /* SymbolLibraryDrawer.swift in Sources */,
+				981CE9E1F1F756BEF63378CE /* SymbolsPanel.swift in Sources */,
+				71C71F12F267D1EA10858B0D /* TACMAP_Current_BuildApp.swift in Sources */,
+				C11D18B9CF8CC15369CE2C42 /* TacMapAnimation.swift in Sources */,
+				3E6CE3BF320E4014F557C700 /* TacMapButtons.swift in Sources */,
+				1DC04C240FCCCF7B074BE6A7 /* TacMapColors.swift in Sources */,
+				AD826309B38CB826C939DB31 /* TacMapIcons.swift in Sources */,
+				CCCCA2DC82D92E2B3AF2A8C3 /* TacMapSpacing.swift in Sources */,
+				53F3017657972C9273141831 /* TacMapTypography.swift in Sources */,
+				66BA8A6CDD07759126E4998E /* TacticalGraphicEntity.swift in Sources */,
+				9A0C51ABA7F1A3DB64EB3D57 /* TargetNumberGenerator.swift in Sources */,
+				17C33F0A2CFBE293D6C53F7C /* TargetType.swift in Sources */,
+				9E764C7FD40A6F367752581E /* ToolsPanel.swift in Sources */,
+				306110CF7DAF99EE99CEACA1 /* UnitType.swift in Sources */,
+				18034BE9DC0DDB2333B70AC5 /* WaypointEntity.swift in Sources */,
+				0B5CB895D46D89E5200AF16A /* WeaponSystem.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1C3452BF028E4607636704BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
+				INFOPLIST_FILE = "TACMAP Current Build/Resources/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tacmap.app;
+				PRODUCT_NAME = TacMap;
+				SWIFT_ENABLE_EXPLICIT_MODULES = NO;
+			};
+			name = Debug;
+		};
+		3301D3ED46090A345F8D6C44 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 2.0.0;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		637347DB35EC60C8E52EA849 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
+				INFOPLIST_FILE = "TACMAP Current Build/Resources/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tacmap.app;
+				PRODUCT_NAME = TacMap;
+				SWIFT_ENABLE_EXPLICIT_MODULES = NO;
+			};
+			name = Release;
+		};
+		7A57F73100FC98AC7357F31F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 2.0.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		18467C36D282ADDE69F2062E /* Build configuration list for PBXProject "TacMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A57F73100FC98AC7357F31F /* Debug */,
+				3301D3ED46090A345F8D6C44 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		918F143B16AF22BEDAABEC31 /* Build configuration list for PBXNativeTarget "TacMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C3452BF028E4607636704BC /* Debug */,
+				637347DB35EC60C8E52EA849 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		56400061586C5FCA68B8AC2C /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mapbox/mapbox-maps-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4F273AB6A14F2EEABE8FC88C /* MapboxMaps */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 56400061586C5FCA68B8AC2C /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */;
+			productName = MapboxMaps;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 150CD76804C2DCFEECB07549 /* Project object */;
+}

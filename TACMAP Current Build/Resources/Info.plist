@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleName</key>
+    <string>TacMap</string>
+    <key>CFBundleDisplayName</key>
+    <string>TacMap</string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleVersion</key>
+    <string>$(CURRENT_PROJECT_VERSION)</string>
+    <key>CFBundleShortVersionString</key>
+    <string>$(MARKETING_VERSION)</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
+    <key>LSRequiresIPhoneOS</key>
+    <true/>
+    <key>UILaunchScreen</key>
+    <dict/>
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+        <string>UIInterfaceOrientationLandscapeLeft</string>
+        <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+    <key>MBXAccessToken</key>
+    <string>pk.eyJ1IjoiYnJpZ3V5MjUiLCJhIjoiY21rdDdkZHJ4MW85NTNocHJ6dHpjeGJlaCJ9.-IjbBNrE8gbeBwm56JjRBw</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>TacMap needs your location to display your position on the map.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>TacMap needs your location for background route tracking.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>TacMap uses the camera for geotagged photos.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>TacMap needs access to your photos to attach images to waypoints.</string>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>location</string>
+    </array>
+</dict>
+</plist>
