@@ -56,14 +56,9 @@ struct QuickDropView: View {
     }
 
     private var radialMenu: some View {
-        ZStack {
-            // Background dismiss
-            Color.clear
-                .contentShape(Rectangle())
-                .onTapGesture { manager.state = .collapsed }
-
-            VStack(spacing: TacMapSpacing.sm) {
-                ForEach(QuickDropAction.allCases, id: \.rawValue) { action in
+        HStack(alignment: .bottom, spacing: TacMapSpacing.sm) {
+            VStack(alignment: .trailing, spacing: TacMapSpacing.xs) {
+                ForEach(Array(QuickDropAction.allCases.reversed()), id: \.rawValue) { action in
                     Button(action: {
                         if action == .marker {
                             let wp = WaypointEntity(
@@ -94,7 +89,17 @@ struct QuickDropView: View {
                     .transition(.scale.combined(with: .opacity))
                 }
             }
-            .padding(.bottom, 70)
+
+            // Close button — same size/position as FAB
+            Button(action: { manager.state = .collapsed }) {
+                Image(systemName: "xmark")
+                    .font(.system(size: 22, weight: .bold))
+                    .foregroundColor(TacMapColors.textInverse)
+                    .frame(width: 56, height: 56)
+                    .background(TacMapColors.accentPrimary)
+                    .clipShape(Circle())
+                    .shadow(color: TacMapColors.accentPrimary.opacity(0.4), radius: 8, y: 4)
+            }
         }
         .animation(TacMapAnimation.bounce, value: manager.state == .radialOpen)
     }

@@ -9,7 +9,6 @@ enum TacMapIcons {
     static let chevronRight = "chevron.right"
 
     // MARK: - Map Controls
-    static let compass = "location.north.fill"
     static let location = "location"
     static let locationFill = "location.fill"
     static let layers = "square.3.layers.3d"

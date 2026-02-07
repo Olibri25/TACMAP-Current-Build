@@ -1,22 +1,5 @@
 import SwiftUI
 
-// MARK: - Top-Right Controls (Compass)
-
-struct FloatingControlsTopRight: View {
-    let mapHeading: Double
-    let onCompassTap: () -> Void
-
-    var body: some View {
-        FloatingControlButton(
-            icon: TacMapIcons.compass,
-            isActive: mapHeading != 0,
-            rotation: -mapHeading
-        ) {
-            onCompassTap()
-        }
-    }
-}
-
 // MARK: - Bottom-Right Controls (Elevation, Map Mode, Location)
 
 struct FloatingControlsBottomRight: View {

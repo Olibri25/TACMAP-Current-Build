@@ -8,8 +8,8 @@ enum PanelDetent: Equatable {
     var fraction: CGFloat {
         switch self {
         case .hidden: return 0
-        case .partial: return 0.35
-        case .expanded: return 0.65
+        case .partial: return 1.0 / 3.0
+        case .expanded: return 2.0 / 3.0
         }
     }
 }
@@ -19,12 +19,14 @@ struct SlideUpPanel<Content: View>: View {
     let content: () -> Content
 
     @State private var dragOffset: CGFloat = 0
-    private let velocityThreshold: CGFloat = 500
+    private let velocityThreshold: CGFloat = 300
 
     var body: some View {
         GeometryReader { geometry in
             let maxHeight = geometry.size.height - geometry.safeAreaInsets.top
-            let panelHeight = maxHeight * detent.fraction
+            let targetHeight = maxHeight * detent.fraction
+            let expandedMax = maxHeight * PanelDetent.expanded.fraction
+            let panelHeight = min(max(targetHeight + dragOffset, 0), expandedMax)
 
             VStack(spacing: 0) {
                 Spacer()
@@ -36,23 +38,33 @@ struct SlideUpPanel<Content: View>: View {
                     // Content
                     content()
                         .frame(maxWidth: .infinity)
+                        .clipped()
                 }
-                .frame(height: max(panelHeight + dragOffset, 0))
+                .frame(height: panelHeight)
                 .background(TacMapColors.backgroundSecondary)
-                .clipShape(RoundedRectangle(cornerRadius: TacMapLayout.panelCornerRadius, style: .continuous))
+                .clipShape(
+                    UnevenRoundedRectangle(
+                        topLeadingRadius: TacMapLayout.panelCornerRadius,
+                        bottomLeadingRadius: 0,
+                        bottomTrailingRadius: 0,
+                        topTrailingRadius: TacMapLayout.panelCornerRadius,
+                        style: .continuous
+                    )
+                )
                 .gesture(panelDragGesture(maxHeight: maxHeight))
             }
-            .animation(TacMapAnimation.panel, value: detent)
         }
     }
 
     private var dragHandle: some View {
-        VStack(spacing: TacMapSpacing.xs) {
+        VStack(spacing: 0) {
             Capsule()
                 .fill(TacMapColors.textTertiary)
                 .frame(width: 36, height: 5)
-                .padding(.top, TacMapSpacing.xs)
         }
+        .frame(height: 28)
+        .frame(maxWidth: .infinity)
+        .contentShape(Rectangle())
     }
 
     private func panelDragGesture(maxHeight: CGFloat) -> some Gesture {
@@ -61,20 +73,23 @@ struct SlideUpPanel<Content: View>: View {
                 dragOffset = -value.translation.height
             }
             .onEnded { value in
-                let velocity = -value.predictedEndTranslation.height / max(value.time.timeIntervalSinceNow, 0.001)
-                dragOffset = 0
+                let velocity = -(value.predictedEndTranslation.height - value.translation.height)
 
-                if velocity > velocityThreshold {
-                    // Swipe up - expand
-                    expandOneLevel()
-                } else if velocity < -velocityThreshold {
-                    // Swipe down - collapse
-                    collapseOneLevel()
-                } else {
-                    // Snap to nearest detent
-                    let currentHeight = maxHeight * detent.fraction - value.translation.height
-                    let currentFraction = currentHeight / maxHeight
-                    snapToNearest(fraction: currentFraction)
+                withAnimation(TacMapAnimation.panel) {
+                    dragOffset = 0
+
+                    if velocity > velocityThreshold {
+                        // Swipe up - expand
+                        expandOneLevel()
+                    } else if velocity < -velocityThreshold {
+                        // Swipe down - collapse
+                        collapseOneLevel()
+                    } else {
+                        // Snap to nearest detent
+                        let currentHeight = maxHeight * detent.fraction - value.translation.height
+                        let currentFraction = currentHeight / maxHeight
+                        snapToNearest(fraction: currentFraction)
+                    }
                 }
             }
     }

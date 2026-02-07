@@ -11,12 +11,6 @@ class GoToGridViewModel {
     var easting: String = ""
     var northing: String = ""
 
-    // MARK: - Focus
-    enum Field: Int, CaseIterable {
-        case zone, square, easting, northing
-    }
-    var focusedField: Field? = .easting
-
     // MARK: - Default zone/square from current location
     var defaultZone: String = "18T"
     var defaultSquare: String = "WL"
@@ -25,10 +19,10 @@ class GoToGridViewModel {
     var isValid: Bool {
         let z = zone.isEmpty ? defaultZone : zone
         let s = square.isEmpty ? defaultSquare : square
-        let e = easting
-        let n = northing
-        guard z.count >= 2, s.count == 2, !e.isEmpty, !n.isEmpty else { return false }
-        guard e.allSatisfy(\.isNumber), n.allSatisfy(\.isNumber) else { return false }
+        guard z.count >= 2, s.count == 2 else { return false }
+        guard !easting.isEmpty, !northing.isEmpty else { return false }
+        guard easting.allSatisfy(\.isNumber), northing.allSatisfy(\.isNumber) else { return false }
+        guard easting.count == northing.count else { return false }
         return true
     }
 
@@ -95,56 +89,11 @@ class GoToGridViewModel {
         modelContext.insert(fav)
     }
 
-    // MARK: - Keyboard Input
-
-    func handleKeyInput(_ key: String) {
-        guard let field = focusedField else { return }
-        switch field {
-        case .zone:
-            if zone.count < 3 { zone += key }
-            if zone.count >= 3 { focusedField = .square }
-        case .square:
-            if square.count < 2 { square += key.uppercased() }
-            if square.count >= 2 { focusedField = .easting }
-        case .easting:
-            if easting.count < 5 { easting += key }
-            if easting.count >= 4 && easting.count < 5 {
-                // Auto-advance at 4, 5th digit is manual
-            }
-            if easting.count >= 4 { focusedField = .northing }
-        case .northing:
-            if northing.count < 5 { northing += key }
-        }
-    }
-
-    func handleBackspace() {
-        guard let field = focusedField else { return }
-        switch field {
-        case .zone:
-            if !zone.isEmpty { zone.removeLast() }
-        case .square:
-            if !square.isEmpty { square.removeLast() }
-            else { focusedField = .zone }
-        case .easting:
-            if !easting.isEmpty { easting.removeLast() }
-            else { focusedField = .square }
-        case .northing:
-            if !northing.isEmpty { northing.removeLast() }
-            else { focusedField = .easting }
-        }
-    }
-
-    func advanceField() {
-        guard let current = focusedField, let nextIdx = Field(rawValue: current.rawValue + 1) else { return }
-        focusedField = nextIdx
-    }
-
     func clear() {
         zone = ""
         square = ""
         easting = ""
         northing = ""
-        focusedField = .easting
     }
 
     func updateDefaults(from location: CLLocationCoordinate2D) {

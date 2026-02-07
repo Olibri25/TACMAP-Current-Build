@@ -2,8 +2,22 @@ import SwiftUI
 import SwiftData
 import CoreLocation
 
-struct GoToGridPopup: View {
-    @Binding var isPresented: Bool
+// MARK: - Recent Grid Item
+
+struct RecentGridItem: Identifiable {
+    let id: UUID
+    let mgrs: String
+    let name: String
+    let type: String        // "WP", "SYM", "TGT", "OP", "GRID"
+    let typeIcon: String    // SF Symbol
+    let date: Date
+    let coordinate: CLLocationCoordinate2D
+}
+
+// MARK: - Go To Grid Sheet
+
+struct GoToGridSheet: View {
+    @Environment(\.dismiss) private var dismiss
     @Environment(MapViewModel.self) private var mapViewModel
     @Environment(LocationService.self) private var locationService
     @Environment(\.modelContext) private var modelContext
@@ -12,28 +26,115 @@ struct GoToGridPopup: View {
     @State private var showSaveDialog = false
     @State private var favoriteName = ""
 
-    @Query(filter: #Predicate<SavedGridEntity> { $0.isFavorite }, sort: \SavedGridEntity.createdAt, order: .reverse)
-    private var favorites: [SavedGridEntity]
+    enum FocusField: Hashable {
+        case zone, square, easting, northing
+    }
+    @FocusState private var focusedField: FocusField?
 
+    // MARK: - Queries for unified recents
     @Query(filter: #Predicate<SavedGridEntity> { !$0.isFavorite }, sort: \SavedGridEntity.lastUsedAt, order: .reverse)
-    private var recents: [SavedGridEntity]
+    private var recentGrids: [SavedGridEntity]
+
+    @Query(sort: \WaypointEntity.createdAt, order: .reverse)
+    private var waypoints: [WaypointEntity]
+
+    @Query(sort: \MilitarySymbolEntity.createdAt, order: .reverse)
+    private var symbols: [MilitarySymbolEntity]
+
+    @Query(sort: \PlannedTargetEntity.createdAt, order: .reverse)
+    private var targets: [PlannedTargetEntity]
+
+    @Query(sort: \ObservationPostEntity.createdAt, order: .reverse)
+    private var observationPosts: [ObservationPostEntity]
+
+    // MARK: - Unified recents
+    private var recentItems: [RecentGridItem] {
+        var items: [RecentGridItem] = []
+
+        for wp in waypoints.prefix(5) {
+            let coord = CLLocationCoordinate2D(latitude: wp.latitude, longitude: wp.longitude)
+            let mgrs = CoordinateConverter.toMGRS(coord, precision: 5)
+            items.append(RecentGridItem(
+                id: wp.id, mgrs: mgrs, name: wp.name,
+                type: "WP", typeIcon: TacMapIcons.waypoint,
+                date: wp.createdAt, coordinate: coord
+            ))
+        }
+
+        for sym in symbols.prefix(5) {
+            let coord = CLLocationCoordinate2D(latitude: sym.latitude, longitude: sym.longitude)
+            let mgrs = CoordinateConverter.toMGRS(coord, precision: 5)
+            items.append(RecentGridItem(
+                id: sym.id, mgrs: mgrs, name: sym.name,
+                type: "SYM", typeIcon: TacMapIcons.shield,
+                date: sym.createdAt, coordinate: coord
+            ))
+        }
+
+        for tgt in targets.prefix(5) {
+            let coord = CLLocationCoordinate2D(latitude: tgt.latitude, longitude: tgt.longitude)
+            let mgrs = CoordinateConverter.toMGRS(coord, precision: 5)
+            items.append(RecentGridItem(
+                id: tgt.id, mgrs: mgrs, name: tgt.name,
+                type: "TGT", typeIcon: TacMapIcons.target,
+                date: tgt.createdAt, coordinate: coord
+            ))
+        }
+
+        for op in observationPosts.prefix(5) {
+            let coord = CLLocationCoordinate2D(latitude: op.latitude, longitude: op.longitude)
+            let mgrs = CoordinateConverter.toMGRS(coord, precision: 5)
+            items.append(RecentGridItem(
+                id: op.id, mgrs: mgrs, name: op.name,
+                type: "OP", typeIcon: "eye",
+                date: op.createdAt, coordinate: coord
+            ))
+        }
+
+        for grid in recentGrids.prefix(5) {
+            let mgrs = "\(grid.zone) \(grid.square) \(grid.easting) \(grid.northing)"
+            if let coord = CoordinateConverter.fromMGRS(grid.mgrsString) {
+                items.append(RecentGridItem(
+                    id: grid.id, mgrs: mgrs, name: grid.name ?? "Grid",
+                    type: "GRID", typeIcon: TacMapIcons.goToGrid,
+                    date: grid.lastUsedAt, coordinate: coord
+                ))
+            }
+        }
+
+        return items.sorted { $0.date > $1.date }.prefix(8).map { $0 }
+    }
+
+    // MARK: - Body
 
     var body: some View {
-        ZStack {
-            // Dim background
-            Color.black.opacity(0.5)
-                .ignoresSafeArea()
-                .onTapGesture { isPresented = false }
-
-            // Popup card
+        NavigationStack {
             VStack(spacing: 0) {
-                // Header
-                HStack {
-                    Text("Go To Grid")
-                        .font(TacMapTypography.headlineLarge)
-                        .foregroundColor(TacMapColors.textPrimary)
+                // Scrollable recents
+                if !recentItems.isEmpty {
+                    ScrollView {
+                        recentsSection
+                            .padding(.top, TacMapSpacing.sm)
+                    }
+                    .scrollDismissesKeyboard(.never)
+                } else {
                     Spacer()
-                    Button(action: { isPresented = false }) {
+                }
+
+                Divider()
+                    .overlay(TacMapColors.borderSubtle)
+
+                // Pinned input area
+                inputSection
+                    .padding(.horizontal, TacMapSpacing.md)
+                    .padding(.top, TacMapSpacing.sm)
+                    .padding(.bottom, TacMapSpacing.xs)
+            }
+            .navigationTitle("Go To Grid")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: { dismiss() }) {
                         Image(systemName: TacMapIcons.close)
                             .foregroundColor(TacMapColors.textSecondary)
                             .frame(width: 28, height: 28)
@@ -41,60 +142,20 @@ struct GoToGridPopup: View {
                             .clipShape(Circle())
                     }
                 }
-                .padding(.horizontal, TacMapSpacing.md)
-                .padding(.top, TacMapSpacing.md)
-
-                ScrollView {
-                    VStack(spacing: TacMapSpacing.md) {
-                        // Favorites
-                        if !favorites.isEmpty {
-                            favoritesSection
-                        }
-
-                        // Recents
-                        if !recents.isEmpty {
-                            recentsSection
-                        }
-
-                        // Input Fields
-                        inputFieldsSection
-
-                        // Custom MGRS Keyboard
-                        MGRSKeyboard(
-                            focusedField: viewModel.focusedField,
-                            onKey: { viewModel.handleKeyInput($0) },
-                            onBackspace: { viewModel.handleBackspace() },
-                            onNext: { viewModel.advanceField() }
-                        )
-
-                        // Action Buttons
-                        HStack(spacing: TacMapSpacing.sm) {
-                            SecondaryButton(title: "Save") {
-                                showSaveDialog = true
-                            }
-
-                            PrimaryButton(title: "GO", isEnabled: viewModel.isValid) {
-                                if viewModel.navigateToGrid(mapViewModel: mapViewModel, modelContext: modelContext) {
-                                    isPresented = false
-                                }
-                            }
-                        }
-                        .padding(.horizontal, TacMapSpacing.md)
-                    }
-                    .padding(.bottom, TacMapSpacing.md)
-                }
             }
-            .background(TacMapColors.backgroundSecondary)
-            .clipShape(RoundedRectangle(cornerRadius: TacMapLayout.panelCornerRadius))
-            .padding(.horizontal, TacMapSpacing.md)
-            .padding(.vertical, 60)
         }
         .onAppear {
             if let loc = locationService.currentLocation?.coordinate {
                 viewModel.updateDefaults(from: loc)
             }
+            focusedField = .easting
         }
-        .alert("Save Favorite", isPresented: $showSaveDialog) {
+        .onChange(of: focusedField) { _, newValue in
+            if newValue == nil {
+                focusedField = .easting
+            }
+        }
+        .alert("Save Grid", isPresented: $showSaveDialog) {
             TextField("Name (e.g., OBJ Copper)", text: $favoriteName)
             Button("Save") {
                 viewModel.saveFavorite(name: favoriteName, modelContext: modelContext)
@@ -104,33 +165,8 @@ struct GoToGridPopup: View {
         }
     }
 
-    // MARK: - Favorites Section
-    private var favoritesSection: some View {
-        VStack(alignment: .leading, spacing: TacMapSpacing.xs) {
-            HStack {
-                Image(systemName: TacMapIcons.favoriteFill)
-                    .foregroundColor(TacMapColors.accentPrimary)
-                    .font(.system(size: 12))
-                Text("Favorites")
-                    .font(TacMapTypography.headlineSmall)
-                    .foregroundColor(TacMapColors.textSecondary)
-            }
-            .padding(.horizontal, TacMapSpacing.md)
-
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: TacMapSpacing.xs) {
-                    ForEach(favorites) { fav in
-                        FavoriteGridCard(grid: fav) {
-                            jumpToGrid(fav)
-                        }
-                    }
-                }
-                .padding(.horizontal, TacMapSpacing.md)
-            }
-        }
-    }
-
     // MARK: - Recents Section
+
     private var recentsSection: some View {
         VStack(alignment: .leading, spacing: TacMapSpacing.xs) {
             HStack {
@@ -143,14 +179,34 @@ struct GoToGridPopup: View {
             }
             .padding(.horizontal, TacMapSpacing.md)
 
-            ForEach(recents.prefix(5)) { recent in
-                Button(action: { jumpToGrid(recent) }) {
-                    HStack {
-                        Text("\(recent.zone) \(recent.square) \(recent.easting) \(recent.northing)")
+            ForEach(recentItems) { item in
+                Button(action: { navigateToItem(item) }) {
+                    HStack(spacing: TacMapSpacing.xs) {
+                        Image(systemName: item.typeIcon)
+                            .font(.system(size: 14))
+                            .foregroundColor(TacMapColors.accentPrimary)
+                            .frame(width: 24)
+
+                        Text(item.type)
+                            .font(TacMapTypography.labelSmall)
+                            .foregroundColor(TacMapColors.textTertiary)
+                            .frame(width: 36, alignment: .leading)
+
+                        Text(item.mgrs)
                             .font(TacMapTypography.monoSmall)
                             .foregroundColor(TacMapColors.textPrimary)
+                            .lineLimit(1)
+
                         Spacer()
-                        Image(systemName: "chevron.right")
+
+                        if item.type != "GRID" {
+                            Text(item.name)
+                                .font(TacMapTypography.captionSmall)
+                                .foregroundColor(TacMapColors.textTertiary)
+                                .lineLimit(1)
+                        }
+
+                        Image(systemName: TacMapIcons.chevronRight)
                             .font(.system(size: 10))
                             .foregroundColor(TacMapColors.textTertiary)
                     }
@@ -161,93 +217,161 @@ struct GoToGridPopup: View {
         }
     }
 
-    // MARK: - Input Fields
-    private var inputFieldsSection: some View {
-        HStack(spacing: TacMapSpacing.xs) {
-            GridInputField(label: "Zone", value: viewModel.zone, placeholder: viewModel.defaultZone, isFocused: viewModel.focusedField == .zone) {
-                viewModel.focusedField = .zone
+    // MARK: - Input Section
+
+    private var inputSection: some View {
+        VStack(spacing: TacMapSpacing.sm) {
+            // Field labels
+            HStack(spacing: TacMapSpacing.xs) {
+                Text("Zone")
+                    .font(TacMapTypography.captionSmall)
+                    .foregroundColor(TacMapColors.textTertiary)
+                    .frame(width: 52)
+                Text("Sq")
+                    .font(TacMapTypography.captionSmall)
+                    .foregroundColor(TacMapColors.textTertiary)
+                    .frame(width: 44)
+                Text("Easting")
+                    .font(TacMapTypography.captionSmall)
+                    .foregroundColor(TacMapColors.textTertiary)
+                    .frame(maxWidth: .infinity)
+                Text("Northing")
+                    .font(TacMapTypography.captionSmall)
+                    .foregroundColor(TacMapColors.textTertiary)
+                    .frame(maxWidth: .infinity)
             }
-            GridInputField(label: "Sq", value: viewModel.square, placeholder: viewModel.defaultSquare, isFocused: viewModel.focusedField == .square) {
-                viewModel.focusedField = .square
+
+            // Input fields
+            HStack(spacing: TacMapSpacing.xs) {
+                // Zone
+                TextField(viewModel.defaultZone, text: $viewModel.zone)
+                    .keyboardType(.asciiCapable)
+                    .textInputAutocapitalization(.characters)
+                    .font(TacMapTypography.monoMedium)
+                    .multilineTextAlignment(.center)
+                    .frame(width: 52)
+                    .padding(.vertical, TacMapSpacing.xs)
+                    .background(TacMapColors.backgroundTertiary)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(focusedField == .zone ? TacMapColors.accentPrimary : TacMapColors.borderDefault, lineWidth: focusedField == .zone ? 2 : 1)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .focused($focusedField, equals: .zone)
+                    .onChange(of: viewModel.zone) { _, newValue in
+                        // Filter: allow digits + one letter (lat band)
+                        let filtered = String(newValue.prefix(3)).uppercased()
+                        if filtered != newValue { viewModel.zone = filtered }
+                        if filtered.count >= 3 { focusedField = .square }
+                    }
+
+                // Square
+                TextField(viewModel.defaultSquare, text: $viewModel.square)
+                    .keyboardType(.asciiCapable)
+                    .textInputAutocapitalization(.characters)
+                    .font(TacMapTypography.monoMedium)
+                    .multilineTextAlignment(.center)
+                    .frame(width: 44)
+                    .padding(.vertical, TacMapSpacing.xs)
+                    .background(TacMapColors.backgroundTertiary)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(focusedField == .square ? TacMapColors.accentPrimary : TacMapColors.borderDefault, lineWidth: focusedField == .square ? 2 : 1)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .focused($focusedField, equals: .square)
+                    .onChange(of: viewModel.square) { _, newValue in
+                        let filtered = String(newValue.prefix(2).filter { $0.isLetter }).uppercased()
+                        if filtered != newValue { viewModel.square = filtered }
+                        if filtered.count >= 2 { focusedField = .easting }
+                    }
+
+                // Easting
+                TextField("00000", text: $viewModel.easting)
+                    .keyboardType(.numberPad)
+                    .font(TacMapTypography.monoMedium)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, TacMapSpacing.xs)
+                    .background(TacMapColors.backgroundTertiary)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(focusedField == .easting ? TacMapColors.accentPrimary : TacMapColors.borderDefault, lineWidth: focusedField == .easting ? 2 : 1)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .focused($focusedField, equals: .easting)
+                    .onChange(of: viewModel.easting) { _, newValue in
+                        let filtered = String(newValue.prefix(5).filter { $0.isNumber })
+                        if filtered != newValue { viewModel.easting = filtered }
+                    }
+
+                // Northing
+                TextField("00000", text: $viewModel.northing)
+                    .keyboardType(.numberPad)
+                    .font(TacMapTypography.monoMedium)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, TacMapSpacing.xs)
+                    .background(TacMapColors.backgroundTertiary)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(focusedField == .northing ? TacMapColors.accentPrimary : TacMapColors.borderDefault, lineWidth: focusedField == .northing ? 2 : 1)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .focused($focusedField, equals: .northing)
+                    .onChange(of: viewModel.northing) { _, newValue in
+                        let filtered = String(newValue.prefix(5).filter { $0.isNumber })
+                        if filtered != newValue { viewModel.northing = filtered }
+                    }
             }
-            GridInputField(label: "Easting", value: viewModel.easting, placeholder: "00000", isFocused: viewModel.focusedField == .easting) {
-                viewModel.focusedField = .easting
-            }
-            GridInputField(label: "Northing", value: viewModel.northing, placeholder: "00000", isFocused: viewModel.focusedField == .northing) {
-                viewModel.focusedField = .northing
+
+            // Action buttons
+            HStack(spacing: TacMapSpacing.xs) {
+                SecondaryButton(title: "Save") {
+                    showSaveDialog = true
+                }
+
+                // Next button
+                Button(action: { advanceFocus() }) {
+                    Text("Next")
+                        .font(TacMapTypography.labelLarge)
+                        .foregroundColor(TacMapColors.accentPrimary)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, TacMapSpacing.sm)
+                        .background(TacMapColors.accentPrimary.opacity(0.15))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
+
+                PrimaryButton(title: "GO", action: {
+                    if viewModel.navigateToGrid(mapViewModel: mapViewModel, modelContext: modelContext) {
+                        dismiss()
+                    }
+                }, isEnabled: viewModel.isValid)
             }
         }
-        .padding(.horizontal, TacMapSpacing.md)
     }
 
-    private func jumpToGrid(_ grid: SavedGridEntity) {
-        let mgrs = grid.mgrsString
-        if let coord = CoordinateConverter.fromMGRS(mgrs) {
-            let zoom = mapViewModel.zoomLevel < 10 ? 14.0 : mapViewModel.zoomLevel
-            mapViewModel.navigateToCoordinate(coord, zoom: zoom)
+    // MARK: - Actions
 
-            grid.lastUsedAt = Date()
+    private func navigateToItem(_ item: RecentGridItem) {
+        let zoom = mapViewModel.zoomLevel < 10 ? 14.0 : mapViewModel.zoomLevel
+        mapViewModel.navigateToCoordinate(item.coordinate, zoom: zoom)
 
-            let feedback = UINotificationFeedbackGenerator()
-            feedback.notificationOccurred(.success)
-            isPresented = false
-        }
+        let feedback = UINotificationFeedbackGenerator()
+        feedback.notificationOccurred(.success)
+        dismiss()
     }
-}
 
-// MARK: - Supporting Views
-
-struct FavoriteGridCard: View {
-    let grid: SavedGridEntity
-    let action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            VStack(alignment: .leading, spacing: 2) {
-                Text(grid.name ?? "Saved")
-                    .font(TacMapTypography.labelSmall)
-                    .foregroundColor(TacMapColors.accentPrimary)
-                    .lineLimit(1)
-                Text("\(grid.zone)\(grid.square)")
-                    .font(TacMapTypography.monoCaption)
-                    .foregroundColor(TacMapColors.textSecondary)
-                Text("\(grid.easting) \(grid.northing)")
-                    .font(TacMapTypography.monoCaption)
-                    .foregroundColor(TacMapColors.textSecondary)
-            }
-            .padding(TacMapSpacing.xs)
-            .frame(width: 80)
-            .background(TacMapColors.backgroundTertiary)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+    private func advanceFocus() {
+        switch focusedField {
+        case .zone: focusedField = .square
+        case .square: focusedField = .easting
+        case .easting: focusedField = .northing
+        case .northing: focusedField = .easting
+        case nil: focusedField = .zone
         }
-    }
-}
 
-struct GridInputField: View {
-    let label: String
-    let value: String
-    let placeholder: String
-    let isFocused: Bool
-    let onTap: () -> Void
-
-    var body: some View {
-        VStack(spacing: 2) {
-            Text(label)
-                .font(TacMapTypography.captionSmall)
-                .foregroundColor(TacMapColors.textTertiary)
-
-            Text(value.isEmpty ? placeholder : value)
-                .font(TacMapTypography.monoMedium)
-                .foregroundColor(value.isEmpty ? TacMapColors.textTertiary : TacMapColors.textPrimary)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, TacMapSpacing.xs)
-                .background(TacMapColors.backgroundTertiary)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(isFocused ? TacMapColors.accentPrimary : TacMapColors.borderDefault, lineWidth: isFocused ? 2 : 1)
-                )
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .onTapGesture { onTap() }
-        }
+        let impact = UIImpactFeedbackGenerator(style: .light)
+        impact.impactOccurred()
     }
 }

@@ -48,6 +48,7 @@ struct ContentView: View {
     @State private var panelDetent: PanelDetent = .hidden
     @State private var isShowingMenu: Bool = false
     @State private var isShowingSearch: Bool = false
+    @State private var showCopiedToast: Bool = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -60,13 +61,16 @@ struct ContentView: View {
                 VStack {
                     TopControlsBar(
                         mgrs: mapViewModel.centerMGRS,
+                        showCopiedToast: showCopiedToast,
                         onMenuTap: { isShowingMenu = true },
                         onSearchTap: { isShowingSearch = true },
                         onLayersTap: { mapViewModel.isShowingLayerPanel = true },
-                        onGoToGridTap: { mapViewModel.isShowingGoToGrid = true }
+                        onGoToGridTap: { mapViewModel.isShowingGoToGrid = true },
+                        onCopyGridTap: { copyGridToClipboard() }
                     )
                     .padding(.top, TacMapSpacing.xxs)
                     .padding(.horizontal, TacMapSpacing.sm)
+
                     Spacer()
                 }
 
@@ -85,21 +89,7 @@ struct ContentView: View {
                     }
                 }
 
-                // Layer 2b: Floating Controls — Top Right (Compass)
-                VStack {
-                    HStack {
-                        Spacer()
-                        FloatingControlsTopRight(
-                            mapHeading: mapViewModel.mapHeading,
-                            onCompassTap: { mapViewModel.resetNorth() }
-                        )
-                        .padding(.trailing, TacMapLayout.floatingControlMargin)
-                    }
-                    .padding(.top, 44)
-                    Spacer()
-                }
-
-                // Layer 2c: Floating Controls — Bottom Right (Elevation, Map Mode, Location)
+                // Layer 2b: Floating Controls — Bottom Right (Elevation, Map Mode, Location)
                 VStack {
                     Spacer()
                     HStack {
@@ -120,10 +110,10 @@ struct ContentView: View {
                         )
                         .padding(.trailing, TacMapLayout.floatingControlMargin)
                     }
-                    .padding(.bottom, panelDetent == .hidden ? 58 : geometry.size.height * panelDetent.fraction + 52)
+                    .padding(.bottom, panelDetent == .hidden ? 126 : geometry.size.height * panelDetent.fraction + 120)
                 }
 
-                // Layer 2d: Scale Bar (bottom left)
+                // Layer 2c: Scale Bar (bottom left)
                 VStack {
                     Spacer()
                     HStack {
@@ -153,7 +143,6 @@ struct ContentView: View {
                     SlideUpPanel(detent: $panelDetent) {
                         tabContent
                     }
-                    .frame(height: geometry.size.height * panelDetent.fraction)
 
                     // Bottom Navigation Bar
                     BottomNavigationBar(
@@ -165,13 +154,20 @@ struct ContentView: View {
                     .background(TacMapColors.backgroundPrimary)
                 }
 
-                // Layer 5: Go To Grid Overlay
-                if mapViewModel.isShowingGoToGrid {
-                    GoToGridPopup(isPresented: Binding(
-                        get: { mapViewModel.isShowingGoToGrid },
-                        set: { mapViewModel.isShowingGoToGrid = $0 }
-                    ))
+                // Layer 5: Marker Detail Card
+                if mapViewModel.selectedMarker != nil {
+                    MarkerDetailCard(
+                        marker: mapViewModel.selectedMarker!,
+                        isPresented: Binding(
+                            get: { mapViewModel.selectedMarker != nil },
+                            set: { if !$0 { mapViewModel.selectedMarker = nil } }
+                        )
+                    )
+                    .transition(.move(edge: .bottom))
+                    .zIndex(10)
                 }
+
+                // Layer 6: (removed — Go To Grid is now a .sheet)
             }
             .ignoresSafeArea(.keyboard)
         }
@@ -182,6 +178,15 @@ struct ContentView: View {
             set: { mapViewModel.isShowingLayerPanel = $0 }
         )) {
             LayerTogglePanel()
+        }
+        .sheet(isPresented: Binding(
+            get: { mapViewModel.isShowingGoToGrid },
+            set: { mapViewModel.isShowingGoToGrid = $0 }
+        )) {
+            GoToGridSheet()
+                .presentationDetents([.large])
+                .presentationDragIndicator(.visible)
+                .presentationBackground(TacMapColors.backgroundSecondary)
         }
         .preferredColorScheme(.dark)
         .onAppear {
@@ -197,6 +202,21 @@ struct ContentView: View {
         case .tools: ToolsPanel()
         case .symbols: SymbolsPanel()
         case .settings: SettingsPanel()
+        }
+    }
+
+    private func copyGridToClipboard() {
+        UIPasteboard.general.string = mapViewModel.centerMGRS
+        let feedback = UINotificationFeedbackGenerator()
+        feedback.notificationOccurred(.success)
+        withAnimation(TacMapAnimation.fade) {
+            showCopiedToast = true
+        }
+        Task {
+            try? await Task.sleep(for: .seconds(1.2))
+            withAnimation(TacMapAnimation.fade) {
+                showCopiedToast = false
+            }
         }
     }
 
@@ -219,10 +239,12 @@ struct ContentView: View {
 
 struct TopControlsBar: View {
     let mgrs: String
+    let showCopiedToast: Bool
     let onMenuTap: () -> Void
     let onSearchTap: () -> Void
     let onLayersTap: () -> Void
     let onGoToGridTap: () -> Void
+    let onCopyGridTap: () -> Void
 
     var body: some View {
         HStack {
@@ -251,20 +273,47 @@ struct TopControlsBar: View {
                 .clipShape(Capsule())
             }
 
-            // Go To Grid / MGRS coordinate pill
-            Button(action: onGoToGridTap) {
-                HStack(spacing: 4) {
-                    Image(systemName: TacMapIcons.goToGrid)
-                        .font(.system(size: 12))
-                    Text(mgrs.isEmpty ? "Grid" : mgrs)
-                        .font(TacMapTypography.labelSmall)
-                        .lineLimit(1)
+            // Go To Grid pill + Copy button with centered toast
+            VStack(spacing: TacMapSpacing.xxxs) {
+                HStack(spacing: TacMapSpacing.xxs) {
+                    // Go To Grid / MGRS coordinate pill
+                    Button(action: onGoToGridTap) {
+                        HStack(spacing: 4) {
+                            Image(systemName: TacMapIcons.goToGrid)
+                                .font(.system(size: 12))
+                            Text(mgrs.isEmpty ? "Grid" : mgrs)
+                                .font(TacMapTypography.labelSmall)
+                                .lineLimit(1)
+                        }
+                        .foregroundColor(TacMapColors.accentPrimary)
+                        .padding(.horizontal, TacMapSpacing.xs)
+                        .padding(.vertical, TacMapSpacing.xxs)
+                        .background(TacMapColors.backgroundElevated.opacity(0.85))
+                        .clipShape(Capsule())
+                    }
+
+                    // Copy grid button
+                    Button(action: onCopyGridTap) {
+                        Image(systemName: TacMapIcons.copy)
+                            .font(.system(size: 12))
+                            .foregroundColor(TacMapColors.textPrimary)
+                            .frame(width: 28, height: 28)
+                            .background(TacMapColors.backgroundElevated.opacity(0.85))
+                            .clipShape(Circle())
+                    }
                 }
-                .foregroundColor(TacMapColors.accentPrimary)
-                .padding(.horizontal, TacMapSpacing.xs)
-                .padding(.vertical, TacMapSpacing.xxs)
-                .background(TacMapColors.backgroundElevated.opacity(0.85))
-                .clipShape(Capsule())
+
+                // Toast centered below grid pill + copy button
+                if showCopiedToast {
+                    Text("Copied!")
+                        .font(TacMapTypography.captionSmall)
+                        .foregroundColor(TacMapColors.textPrimary)
+                        .padding(.horizontal, TacMapSpacing.xs)
+                        .padding(.vertical, TacMapSpacing.xxxs)
+                        .background(TacMapColors.backgroundElevated)
+                        .clipShape(Capsule())
+                        .transition(.opacity.animation(TacMapAnimation.fade))
+                }
             }
 
             Spacer()

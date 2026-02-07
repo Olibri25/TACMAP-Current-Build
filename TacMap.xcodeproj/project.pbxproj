@@ -37,7 +37,6 @@
 		7BFFD0E7377E29628E895EB3 /* LayerTogglePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715512AFFC0FB5D9A4FB3E57 /* LayerTogglePanel.swift */; };
 		89E649558D5E72AF50897CC4 /* FloatingControlsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969021E0EAB2DEC398485B4E /* FloatingControlsStack.swift */; };
 		93B6B103CFFD2192B175B8C7 /* GraphicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD169D69A3967D5FFC3ACB6E /* GraphicType.swift */; };
-		949C573B60F675FD31125382 /* MGRSKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6653D413378B2A373D15F650 /* MGRSKeyboard.swift */; };
 		981CE9E1F1F756BEF63378CE /* SymbolsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD2E4D24B0648F52089F961 /* SymbolsPanel.swift */; };
 		9A0C51ABA7F1A3DB64EB3D57 /* TargetNumberGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467E864DA2608CFFE9EC3BB0 /* TargetNumberGenerator.swift */; };
 		9CE04C68C72D026CB1830023 /* MapCrosshair.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8B875886A16006E6BB10E4 /* MapCrosshair.swift */; };
@@ -97,7 +96,6 @@
 		5DA400502549FEDA04A35422 /* FireMissionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireMissionEntity.swift; sourceTree = "<group>"; };
 		5DD2E4D24B0648F52089F961 /* SymbolsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolsPanel.swift; sourceTree = "<group>"; };
 		64303C63F37E4413F7BD8A96 /* TacMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TacMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6653D413378B2A373D15F650 /* MGRSKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGRSKeyboard.swift; sourceTree = "<group>"; };
 		677E9E766CA7D8E6373CB448 /* CoordinateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormat.swift; sourceTree = "<group>"; };
 		6824A1D0FC8FCC56E58262D0 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		6863361584F2EDF7357E0A71 /* MarkerOverlayEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerOverlayEntity.swift; sourceTree = "<group>"; };
@@ -179,7 +177,6 @@
 			isa = PBXGroup;
 			children = (
 				8315A45AA6D515A5D32FB200 /* GoToGridPopup.swift */,
-				6653D413378B2A373D15F650 /* MGRSKeyboard.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -627,7 +624,6 @@
 				93B6B103CFFD2192B175B8C7 /* GraphicType.swift in Sources */,
 				7BFFD0E7377E29628E895EB3 /* LayerTogglePanel.swift in Sources */,
 				ECF1082C75A22A1201AFCAED /* LocationService.swift in Sources */,
-				949C573B60F675FD31125382 /* MGRSKeyboard.swift in Sources */,
 				7788E0A371584CFD02FAB7EE /* MapContainerView.swift in Sources */,
 				9CE04C68C72D026CB1830023 /* MapCrosshair.swift in Sources */,
 				1AE30FEE9F92BD4AB45CB7FD /* MapMode.swift in Sources */,
@@ -679,6 +675,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6UUGC98YRW;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
 				INFOPLIST_FILE = "TACMAP Current Build/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -742,6 +739,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6UUGC98YRW;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
 				INFOPLIST_FILE = "TACMAP Current Build/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
